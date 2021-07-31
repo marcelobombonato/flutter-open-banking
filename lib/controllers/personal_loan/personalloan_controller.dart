@@ -1,22 +1,15 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:my_open_banking/models/personalloan_model.dart';
+import 'package:my_open_banking/repositories/personalloan_repository.dart';
 
 class PersonalLoanController {
 
-  PersonalLoanController(){}
-  Future<PersonalLoanModel?> getPersonalLoans() async {
-    String WEB_BASE_USE = 'https://j2c91xrdq5.execute-api.us-east-1.amazonaws.com/dev/personal-loan';
+  List<PersonalLoanModel> personalLoans =[];
 
-    try {
-      var response = await http.get(Uri.parse((url)));
-      var json = jsonDecode(response.body);
-      var personalLoans = PersonalLoanModel.fromJson(json);
-      print(personalLoans);
-      return personalLoans;
-    } catch (e) {
-      print(e.toString());
-      throw e.toString();
-    }
+  final _repository;
+
+  PersonalLoanController([PersonalLoanRepository? repository]) : _repository = repository ?? PersonalLoanRepository();
+
+  Future start() async{
+    personalLoans = await _repository.fetchPersonalLoans();
   }
 }
