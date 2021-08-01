@@ -12,10 +12,17 @@ main (){
   final controller = PersonalLoanController(repository);
 
   test('deve preecher variável personalloans', () async {
-
     when(repository.fetchPersonalLoans()).thenAnswer((_) async => [PersonalLoanModel()]);
-
+    expect(controller.state, PersonalLoanState.start);
     await controller.start();
+    expect(controller.state, PersonalLoanState.success);
     expect(controller.personalLoans.isNotEmpty, true);
+  });
+
+  test('deve modificar o estado para error se a requisição falhar', () async {
+    when(repository.fetchPersonalLoans()).thenThrow(Exception());
+    expect(controller.state, PersonalLoanState.start);
+    await controller.start();
+    expect(controller.state, PersonalLoanState.error);
   });
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:my_open_banking/views/personal_loan.dart';
+import 'package:my_open_banking/views/personalloan_page.dart';
 
 import 'home_page.dart';
 import 'login_page.dart';
@@ -14,7 +14,7 @@ class AppWidget extends StatelessWidget {
         routes: {
           '/': (context) => LoginPage(),
           '/home': (context) => HomePage(),
-          '/personal-loan': (context) => PersonalLoan(),
+          '/personal-loan': (context) => PersonalLoanPage(),
         });
   }
 }
