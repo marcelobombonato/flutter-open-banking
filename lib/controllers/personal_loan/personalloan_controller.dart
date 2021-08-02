@@ -21,14 +21,6 @@ class PersonalLoanController {
       state.value = PersonalLoanState.error;
     }
   }
-
-  String transform(String word){
-    if (word.isEmpty) {
-    return word;
-  }
-  word = word.replaceAll("_", " ").toLowerCase();
-  return word[0].toUpperCase() + word.substring(1);
-  }
 }
 
 enum PersonalLoanState {

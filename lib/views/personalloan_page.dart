@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_open_banking/controllers/personal_loan/personalloan_controller.dart';
+import 'package:my_open_banking/utils/utils.dart';
 import 'package:my_open_banking/views/drawer_widget.dart';
 
 class PersonalLoanPage extends StatefulWidget {
@@ -12,6 +13,8 @@ class _PersonalLoanPageState extends State<PersonalLoanPage> {
 
   final controller = PersonalLoanController();
 
+  final utils = DartUtils();
+
   _success(){
     return ListView.builder(
         itemCount: controller.personalLoans.length,
@@ -23,16 +26,23 @@ class _PersonalLoanPageState extends State<PersonalLoanPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 ListTile(
-                  leading: Icon(Icons.money),
+                  leading: Container(
+                    constraints: BoxConstraints(minWidth: 50, maxWidth: 50),
+                    child: Image.asset("assets/images/"+utils.getLogo(loan.companyCnpj??"")+".png")),
                   title: Text(loan.companyName??"Company Name"),
-                  subtitle: Text(type==null?"Loan name" : controller.transform(type)),
-                  horizontalTitleGap: 0.2,
+                  subtitle: Text(type==null?"Loan name" : utils.transformPersonalLoan(type)),
+                  horizontalTitleGap: 18,
+                  contentPadding: EdgeInsets.symmetric(horizontal: 10),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                 TextButton(
-                  child: const Text('Mais Informações'),
+                  child: const Text('Simular'),
+                  onPressed: () {/* ... */},
+                ),
+                TextButton(
+                  child: const Text('Detalhes'),
                   onPressed: () {/* ... */},
                 ),
                 const SizedBox(width: 8),
